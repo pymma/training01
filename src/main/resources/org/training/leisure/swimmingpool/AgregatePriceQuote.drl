@@ -1,0 +1,17 @@
+package org.training.leisure.swimmingpool;
+
+import org.training.leisure.swimmingpool.Price;
+import org.training.leisure.swimmingpool.Quote;
+
+rule "AggregateQuoteElementList"
+
+when
+    $c : Price( $f : quote)
+   not ( Quote(this ==$f,priceList  contains $c))
+    $be : Quote(this ==$f)
+then
+    $be.getPriceList().add($c);
+    update($be);
+end
+    
+
